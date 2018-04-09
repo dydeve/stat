@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="false">
+    <jmxConfigurator/>
     <property name="PATH_LOG" value="/opt/logs/tomcat/app/${tomcat_app_base:-/tmp}"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -21,4 +22,8 @@
         <appender-ref ref="STDOUT" />
     </root>
 
+    <logger name="top_log">
+        <level value="trace"/>
+        <appender-ref ref="TOP_LOG"/>
+    </logger>
 </configuration>

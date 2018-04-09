@@ -1,4 +1,4 @@
-package statistics.moniitor.log;
+package statistics.monitor.log;
 
 import org.slf4j.Logger;
 

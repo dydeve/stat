@@ -1,7 +1,7 @@
 package ch.qos.logback.classic.spi;
 
 import ch.qos.logback.core.CoreConstants;
-import statistics.moniitor.log.Log;
+import statistics.monitor.log.Log;
 
 import java.util.List;
 

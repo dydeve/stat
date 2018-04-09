@@ -4,11 +4,11 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import statistics.moniitor.log.Log;
+import statistics.monitor.log.Log;
+import statistics.monitor.trace.Overall;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.NoSuchElementException;
@@ -18,9 +18,8 @@ import java.util.NoSuchElementException;
  * Created by dy on 2018/4/9.
  */
 @Aspect
-public class WebCommonAspect {
+public class WebCommonAspect extends AbstractAspect {
 
-    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(WebCommonAspect.class);
 
     @Pointcut("@annotation(requestMapping)")
     public void logPointCut(RequestMapping requestMapping) {
@@ -31,6 +30,14 @@ public class WebCommonAspect {
     public Object logWebCommon(ProceedingJoinPoint pjp, RequestMapping requestMapping) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
+        Overall overall = get(request.getHeader("tid"));
+        try {
+
+        } catch (Exception e) {
+
+        } finally {
+
+        }
         return null;
     }
 
