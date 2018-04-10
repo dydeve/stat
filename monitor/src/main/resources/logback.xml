@@ -1,29 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="false">
     <jmxConfigurator/>
-    <property name="PATH_LOG" value="/opt/logs/tomcat/app/${tomcat_app_base:-/tmp}"/>
+    <property name="PATH_LOG" value="/opt/logs/statistics"/>
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%p %d{yyyy-MM-dd HH:mm:ss.SSS} %t %logger.%M [%F:%L] - %msg%n%ex{full}</pattern>
-        </encoder>
-    </appender>
-
-    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <File>${PATH_LOG}/monitor.log</File>
+    <appender name="businessStdoutAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <Target>System.out</Target>
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %4p %logger{29}.%M - %msg%n%ex{10}</pattern>
-        </encoder>>
+            <pattern>%p %d{yyyy-MM-dd HH:mm:ss.SSS} %t %logger.%M [%F:%L] - %msg%n%ex{full}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <appender name="handlerStdoutAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <Target>System.out</Target>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [ %logger %t:%r ] - [ %p ] %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <appender name="profilingAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Append>true</Append>
+        <File>${PATH_LOG}/profiling.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [ %logger %t:%r ] - [%p] %m%n</pattern>
+        </encoder>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>100MB</MaxFileSize>
+        </triggeringPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <appender name="streamAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Append>true</Append>
+        <File>${PATH_LOG}/stream.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [ %logger %t:%r ] - [%p] %m%n</pattern>
+        </encoder>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>100MB</MaxFileSize>
+        </triggeringPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
     </appender>
 
     <root level="INFO">
-        <!--<appender-ref ref="FILE" />-->
-        <appender-ref ref="STDOUT" />
+        <appender-ref ref="businessStdoutAppender" />
     </root>
 
-    <logger name="top_log">
-        <level value="trace"/>
-        <appender-ref ref="TOP_LOG"/>
+    <logger name="profiling" additivity="false">
+        <appender-ref ref="profilingAppender" />
+        <appender-ref ref="handlerStdoutAppender" />
+    </logger>
+
+    <logger name="stream" additivity="false">
+        <appender-ref ref="streamAppender" />
+        <appender-ref ref="handlerStdoutAppender" />
     </logger>
 </configuration>

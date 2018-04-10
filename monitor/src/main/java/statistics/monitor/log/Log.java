@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 
 /**
+ * 避免到处写 LoggerFactory.getLogger
+ * 关心 文件 方法 行号
  * Created by dy on 2018/4/9.
  */
 public class Log {
@@ -43,6 +45,31 @@ public class Log {
         return CUSTOM_LOGGER_CLASS_NAME;
     }
 
+    public static void debug(String msg) {
+        log().debug(msg);
+    }
+
+
+    public static void debug(String format, Object arg) {
+        log().debug(format, arg);
+    }
+
+
+    public static void debug(String format, Object arg1, Object arg2) {
+        log().debug(format, arg1, arg2);
+    }
+
+
+    public static void debug(String format, Object... arguments) {
+        log().debug(format, arguments);
+    }
+
+
+    public static void debug(String msg, Throwable t) {
+        log().debug(msg, t);
+    }
+
+
     public static void info(String msg) {
         log().info(msg);
     }
@@ -64,6 +91,24 @@ public class Log {
     }
 
 
+    public static void error(String msg) {
+        log().error(msg);
+    }
+
+
+    public static void error(String format, Object arg) {
+        log().error(format, arg);
+    }
+
+
+    public static void error(String format, Object arg1, Object arg2) {
+        log().error(format, arg1, arg2);
+    }
+
+
+    public static void error(String format, Object... arguments) {
+        log().error(format, arguments);
+    }
 
     public static void error(String msg, Throwable t) {
         log().error(msg, t);

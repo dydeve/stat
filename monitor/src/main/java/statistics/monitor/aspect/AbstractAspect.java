@@ -1,6 +1,6 @@
 package statistics.monitor.aspect;
 
-import statistics.monitor.trace.Overall;
+import statistics.monitor.trace.StopWatch;
 import statistics.monitor.util.UniqueId;
 
 /**
@@ -8,26 +8,26 @@ import statistics.monitor.util.UniqueId;
  */
 public abstract class AbstractAspect {
 
-    protected static final ThreadLocal<Overall> holder = new ThreadLocal<Overall>()/* {
+    protected static final ThreadLocal<StopWatch> holder = new ThreadLocal<>()/* {
         @Override
         protected Overall initialValue() {
             return new Overall();
         }
     }*/;
 
-    protected Overall get(String tid) {
-        Overall overall = holder.get();
-        if (overall == null) {
+    protected StopWatch get(String tid) {
+        StopWatch stopWatch = holder.get();
+        if (stopWatch == null) {
 
             if (this instanceof MonitorAspect) {
                 throw new UnsupportedOperationException("monitorAspect can't init threadLocal");
             }
             //todo 测试引用改变
             //第一次
-            overall = new Overall(getTid(tid));
-            holder.set(overall);
+            stopWatch = new StopWatch(getTid(tid));
+            holder.set(stopWatch);
         }
-        return overall;
+        return stopWatch;
     }
 
     protected static final void clear() {
