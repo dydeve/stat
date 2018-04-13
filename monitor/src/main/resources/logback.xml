@@ -3,27 +3,27 @@
     <jmxConfigurator/>
     <property name="PATH_LOG" value="/opt/logs/statistics"/>
 
-    <appender name="businessStdoutAppender" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="bizStdoutAppender" class="ch.qos.logback.core.ConsoleAppender">
         <Target>System.out</Target>
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>%p %d{yyyy-MM-dd HH:mm:ss.SSS} %t %logger.%M [%F:%L] - %msg%n%ex{full}</pattern>
+            <pattern>%p %d{yyyy-MM-dd HH:mm:ss.SSS} %t %logger.%M [%F:%L] %X{tid} %msg%n%ex{full}</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>INFO</level>
         </filter>
     </appender>
 
-    <appender name="handlerStdoutAppender" class="ch.qos.logback.core.ConsoleAppender">
+    <!--<appender name="handlerStdoutAppender" class="ch.qos.logback.core.ConsoleAppender">
         <Target>System.out</Target>
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [ %logger %t:%r ] - [ %p ] %m%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [ %logger %t:%r ] - [ %p ] %X{tid} %m%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>INFO</level>
         </filter>
-    </appender>
+    </appender>-->
 
     <appender name="profilingAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <Append>true</Append>
@@ -37,7 +37,7 @@
         </rollingPolicy>
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [ %logger %t:%r ] - [%p] %m%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [ %logger %t:%r ] - [%p] %X{tid} %m%n</pattern>
         </encoder>
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
             <MaxFileSize>100MB</MaxFileSize>
@@ -69,16 +69,16 @@
     </appender>
 
     <root level="INFO">
-        <appender-ref ref="businessStdoutAppender" />
+        <appender-ref ref="bizStdoutAppender" />
     </root>
 
     <logger name="profiling" additivity="false">
         <appender-ref ref="profilingAppender" />
-        <appender-ref ref="handlerStdoutAppender" />
+        <!--<appender-ref ref="handlerStdoutAppender" />-->
     </logger>
 
     <logger name="stream" additivity="false">
         <appender-ref ref="streamAppender" />
-        <appender-ref ref="handlerStdoutAppender" />
+        <!--<appender-ref ref="handlerStdoutAppender" />-->
     </logger>
 </configuration>

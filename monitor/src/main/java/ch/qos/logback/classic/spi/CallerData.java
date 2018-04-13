@@ -1,7 +1,7 @@
 package ch.qos.logback.classic.spi;
 
 import ch.qos.logback.core.CoreConstants;
-import statistics.monitor.log.Log;
+import statistics.monitor.log.BizLog;
 
 import java.util.List;
 
@@ -83,7 +83,7 @@ public class CallerData {
         // log4j-over-slf4j. it solves http://bugzilla.slf4j.org/show_bug.cgi?id=66
 
         // add statistics.moniitor.log.Log , which diff from original CallerData
-        if (currentClass.equals(fqnOfInvokingClass) || currentClass.equals(LOG4J_CATEGORY) || currentClass.equals(Log.CUSTOM_LOGGER_CLASS_NAME) || currentClass.startsWith(SLF4J_BOUNDARY)
+        if (currentClass.equals(fqnOfInvokingClass) || currentClass.equals(LOG4J_CATEGORY) || currentClass.equals(BizLog.CUSTOM_LOGGER_CLASS_NAME) || currentClass.startsWith(SLF4J_BOUNDARY)
                 || isInFrameworkSpaceList(currentClass, frameworkPackageList)) {
             return true;
         } else {

@@ -1,6 +1,6 @@
 package statistics.monitor.util;
 
-import statistics.monitor.log.Log;
+import statistics.monitor.log.BizLog;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
@@ -45,7 +45,7 @@ public class IpUtils {
         ip = httpRequest.getRemoteAddr();
 
         //can't get ip from head, show all headers
-        Log.debug("remote upstream ip is : {}, headers are : {}", ip, getHeaders(httpRequest));
+        BizLog.debug("remote upstream ip is : {}, headers are : {}", ip, getHeaders(httpRequest));
 
 
         return ip;
@@ -80,7 +80,7 @@ public class IpUtils {
             InetAddress inetAddress = InetAddress.getByName(ip);
             return inetAddress.isSiteLocalAddress() || inetAddress.isLoopbackAddress();
         } catch (UnknownHostException e) {
-            Log.error("parse ip {} fail. e.message {}",  ip, e.getMessage());
+            BizLog.error("parse ip {} fail. e.message {}",  ip, e.getMessage());
             return false;
         }
     }
@@ -112,11 +112,11 @@ public class IpUtils {
         try {
             return getLocalInetAddress().getHostAddress();
         } catch (SocketException e) {
-            Log.error("can't get localhost ip address.", e);
+            BizLog.error("can't get localhost ip address.", e);
             try {
                 return InetAddress.getLocalHost().getHostAddress();
             } catch (UnknownHostException e1) {
-                Log.error("unknown host.", e);
+                BizLog.error("unknown host.", e);
             }
             return "127.0.0.1";
         }

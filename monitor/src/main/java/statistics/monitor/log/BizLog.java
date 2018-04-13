@@ -6,14 +6,15 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 
 /**
+ * 业务日志
  * 避免到处写 LoggerFactory.getLogger
  * 关心 文件 方法 行号
  * Created by dy on 2018/4/9.
  */
-public class Log {
+public class BizLog {
 
-    public static final String CUSTOM_LOGGER_CLASS_NAME = Log.class.getName();
-    private static final Logger LOGGER = LoggerFactory.getLogger(Log.class);
+    public static final String CUSTOM_LOGGER_CLASS_NAME = BizLog.class.getName();
+    private static final Logger LOGGER = LoggerFactory.getLogger(BizLog.class);
 
     private static final HashMap<String, Logger> loggerPool = new HashMap<>();
 
@@ -25,7 +26,7 @@ public class Log {
         }
         String className = getCallerClassName();
         logger = LoggerFactory.getLogger(className);
-        synchronized (Log.class) {
+        synchronized (BizLog.class) {
             loggerPool.putIfAbsent(className, logger);
         }
         return logger;//loggerPool.get(className);

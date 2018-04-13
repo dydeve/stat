@@ -1,7 +1,7 @@
 package statistics.monitor.util;
 
 import com.google.common.base.Preconditions;
-import statistics.monitor.log.Log;
+import statistics.monitor.log.BizLog;
 
 import java.io.Serializable;
 import java.net.NetworkInterface;
@@ -505,7 +505,7 @@ public final class ObjectId implements Comparable<ObjectId>, Serializable {
         } catch (Throwable t) {
             // exception sometimes happens with IBM JVM, use random
             machinePiece = (new SecureRandom().nextInt());
-            Log.error("Failed to get machine identifier from network interface, using random number instead", t);
+            BizLog.error("Failed to get machine identifier from network interface, using random number instead", t);
             //diff from mongodb
             //LOGGER.warn("Failed to get machine identifier from network interface, using random number instead", t);
         }
@@ -528,7 +528,7 @@ public final class ObjectId implements Comparable<ObjectId>, Serializable {
         } catch (Throwable t) {
             processId = (short) new SecureRandom().nextInt();
             //diff from mogodb
-            Log.error("Failed to get process identifier from JMX, using random number instead", t);
+            BizLog.error("Failed to get process identifier from JMX, using random number instead", t);
             //LOGGER.warn("Failed to get process identifier from JMX, using random number instead", t);
         }
 
