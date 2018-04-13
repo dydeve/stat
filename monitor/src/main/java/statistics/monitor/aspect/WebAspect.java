@@ -5,6 +5,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.MDC;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -35,7 +36,7 @@ public class WebAspect extends AbstractAspect {
         ServletRequestAttributes servletContainer = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = servletContainer.getRequest();
 
-        StopWatch stopWatch = get(request.getHeader("tid"));
+        StopWatch stopWatch = get(MDC.get("traceId"));
 
         stopWatch.setHost(IpUtils.getLocalIpAddress());
         stopWatch.setClient(IpUtils.getIpAddress(request));

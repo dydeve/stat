@@ -14,7 +14,7 @@ import java.util.LinkedList;
  */
 public class StopWatch {
 
-    private final String tid;
+    private final String traceId;
     @JsonIgnore
     private final Deque<TaskInfo> taskInfos;
     //tomcat 属性
@@ -28,14 +28,14 @@ public class StopWatch {
 
 
 
-    public StopWatch(String tid) {
-        Preconditions.checkNotNull(tid, "tid can't be null");
-        this.tid = tid;
+    public StopWatch(String traceId) {
+        Preconditions.checkNotNull(traceId, "traceId can't be null");
+        this.traceId = traceId;
         this.taskInfos = new LinkedList<>();
     }
 
     public TaskInfo start(String name) {
-        TaskInfo taskInfo = new TaskInfo(tid, name, taskInfos.size());
+        TaskInfo taskInfo = new TaskInfo(name, taskInfos.size());
         taskInfos.push(taskInfo);
         return taskInfo;
     }
@@ -44,8 +44,8 @@ public class StopWatch {
         return taskInfos.pop().stop();
     }
 
-    public String getTid() {
-        return tid;
+    public String getTraceId() {
+        return traceId;
     }
 
     public Deque<TaskInfo> getTaskInfos() {

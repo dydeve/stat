@@ -7,7 +7,7 @@
         <Target>System.out</Target>
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>%p %d{yyyy-MM-dd HH:mm:ss.SSS} %t %logger.%M [%F:%L] %X{tid} %msg%n%ex{full}</pattern>
+            <pattern>%p %d{yyyy-MM-dd HH:mm:ss.SSS} %t %logger.%M [%F:%L] %X{traceId} %msg%n%ex{full}</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>INFO</level>
@@ -18,7 +18,7 @@
         <Target>System.out</Target>
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [ %logger %t:%r ] - [ %p ] %X{tid} %m%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [ %logger %t:%r ] - [ %p ]traceId{tid} %m%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>INFO</level>
@@ -37,7 +37,7 @@
         </rollingPolicy>
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [ %logger %t:%r ] - [%p] %X{tid} %m%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [ %logger %t:%r ] - [%p] %X{traceId} %m%n</pattern>
         </encoder>
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
             <MaxFileSize>100MB</MaxFileSize>

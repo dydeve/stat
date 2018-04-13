@@ -8,6 +8,7 @@ import statistics.monitor.util.UniqueId;
  */
 public abstract class AbstractAspect {
 
+    //暂时不用ttl  traceId已在mdc中，暂不需扩展
     protected static final ThreadLocal<StopWatch> holder = new ThreadLocal<>()/* {
         @Override
         protected Overall initialValue() {

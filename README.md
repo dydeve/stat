@@ -3,7 +3,7 @@
     <br>使ttl生效  需开启java angent 或 包装 [`java.lang.Runnable`] `Callable` `Executor`.
     <br>详见[`alibaba-ttl`](https://github.com/alibaba/transmittable-thread-local#busts_in_silhouette-user-guide)
 - [`BizLog`](monitor/src/main/java/statistics/monitor/log/BizLog.java)
-    <br>避免到处
+    <br>避免到处LoggerFactory.getLogger()
     ````java
   //using  
   BizLog.info(...);

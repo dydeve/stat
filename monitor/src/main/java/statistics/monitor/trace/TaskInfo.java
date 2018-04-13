@@ -7,7 +7,8 @@ import statistics.monitor.util.Json;
  */
 public class TaskInfo {
 
-    private final String tid;
+    //tid 即 traceId  已在log中打出 by mdc
+    //private final String tid;
 
     private final int sequence;
 
@@ -18,8 +19,7 @@ public class TaskInfo {
 
     private String error;
 
-    public TaskInfo(String tid, String name, int sequence) {
-        this.tid = tid;
+    public TaskInfo(String name, int sequence) {
         this.sequence = sequence;
         this.name = name;
         this.startTime = System.currentTimeMillis();
@@ -27,10 +27,6 @@ public class TaskInfo {
 
     public TaskInfo stop() {
         return setLastTime(System.currentTimeMillis() - startTime);
-    }
-
-    public String getTid() {
-        return tid;
     }
 
     public int getSequence() {
