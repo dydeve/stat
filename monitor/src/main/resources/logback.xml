@@ -14,16 +14,16 @@
         </filter>
     </appender>
 
-    <!--<appender name="handlerStdoutAppender" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="handlerStdoutAppender" class="ch.qos.logback.core.ConsoleAppender">
         <Target>System.out</Target>
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [ %logger %t:%r ] - [ %p ]traceId{tid} %m%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [ %logger %t:%r ] - [%p] traceId:%X{traceId} %m%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>INFO</level>
         </filter>
-    </appender>-->
+    </appender>
 
     <appender name="profilingAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <Append>true</Append>
@@ -74,7 +74,7 @@
 
     <logger name="profiling" additivity="false">
         <appender-ref ref="profilingAppender" />
-        <!--<appender-ref ref="handlerStdoutAppender" />-->
+        <appender-ref ref="handlerStdoutAppender" />
     </logger>
 
     <logger name="stream" additivity="false">

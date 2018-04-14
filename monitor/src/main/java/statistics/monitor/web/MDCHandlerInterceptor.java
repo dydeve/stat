@@ -26,7 +26,7 @@ public class MDCHandlerInterceptor extends HandlerInterceptorAdapter {
         if (tid == null) {
             tid = UniqueId.generate();
         }
-        MDC.put("tid", tid);
+        MDC.put("traceId", tid);
         return true;
     }
 
